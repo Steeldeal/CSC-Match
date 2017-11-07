@@ -3,37 +3,15 @@ import java.util.List;
 
 public class Member {
 	
-	private String name;
-	private int year;
-	private List <Member> FavoriteList;
-	private List <Interest> InterestList;
-	
-	public Member(String nameInput, int yearInput)
-	{
-		name = nameInput;
-		year = yearInput;
-		FavoriteList= new LinkedList <Member> ();
-		InterestList = new LinkedList <Interest> ();
-	}
-	
-	public String toString() 
-	{
-		return name;
-	}
-	
-	public String getName()
-	{
-		return name;
-	}
-	
-	public String addInterest(String interestInput, int levelInput)
-	{
-		return name;
-	}
+	String Name;
+	int Year;
+	List <Member> FavoriteList= new LinkedList <Member> ();
+	List <Interest> InterestList = new LinkedList <Interest> ();
 	
 	public int getInterestLevel (String topic){
 		
 		int interestLevel = 0;
+		
 		return interestLevel;
 		
 	}
@@ -45,8 +23,16 @@ public class Member {
 	public int calculateScore (Member member2) {
 		//current member's compatibility with entered member's compatibility
 		//math stuff
-		
 		int score = 0;
+		
+		if( member.getIndex(member.getName) == member2.getIndex(member2.getName)
+		   {
+			   score+= member.getInterestLevel() * member2.getInterestLevel();
+		   }
+	else{
+		score+= (member2.getInterestLevel() / 2);
+	}
+		
 		return score;
 	}
 	
@@ -73,8 +59,8 @@ public class Member {
 	}
 	
 	public void listSelf() {
-		System.out.println("name: " + name);
-		System.out.println("year: " + year);
+		System.out.println("Name: " + Name);
+		System.out.println("Year: " + Year);
 		System.out.println("Interests: ");
 		System.out.println(InterestList);
 		System.out.println("Favorites: ");
