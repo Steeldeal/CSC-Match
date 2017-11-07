@@ -23,6 +23,17 @@ public class Membership
 		return list.iterator();
 	}
 	
+	public boolean exists(String member)
+	{
+		boolean exists = false;
+		for(Member m : list)
+		{
+		    if (m.Name == member)
+		    	exists = true;
+		}
+		return exists;
+	}
+	
 	public static Membership load(String filename) throws IOException, ClassNotFoundException
 	{
 		FileInputStream fis = new FileInputStream(filename);
@@ -44,34 +55,76 @@ public class Membership
 	
 	public void listSelf()
 	{
-		String filename;
+		for(Object o : list)
+		{
+		    System.out.println(o);
+		}
 	}
 	
 	public void addMember(String member, int year)
 	{
-		Member newMember = new Member();
-		if (newMember != null)
+		boolean exists = false;
+		for(Member m : list)
+		{
+		    if (m.Name == member)
+		    	exists = true;
+		}
+		
+		if (!exists)
+		{
+			Member newMember = new Member(member, year);
 			list.add(newMember);
+		}
+		else
+		{
+			System.out.println(member + " already exists");
+		}
+		
 	}
 	
 	public void removeMember(String member)
 	{
-		Member newMember = new Member();
-		if (newMember != null)
-			list.remove(newMember);
+		// need help
+		boolean exists = false;
+		for(Member m : list)
+		{
+		    if (m.Name == member)
+		    {
+		    	exists = true;
+		    	System.out.println(member + " has been removed.");
+		    }
+		}
+		
+		if (!exists)
+		{
+			System.out.println(member + " does not exist.");
+		}
 	}
 	
 	public void listMember(String member)
 	{
-		Member newMember = new Member();
-		if (newMember != null)
-			list.remove(newMember);
+		boolean exists = false;
+		for(Member m : list)
+		{
+		    if (m.Name == member)
+    		{
+		    	exists = true;
+		    	System.out.println(m.Name);
+		    	System.out.println(m.Year);
+		    	System.out.println("(Interests here)");
+		    	System.out.println("(Favorites here)");
+    		}
+		}
+		
+		if (!exists)
+		{
+			System.out.println(member + " does not exist.");
+		}
+
 	}
 	
 	public void addInterestToMember(String member, String interest, int level)
 	{
-		Member newMember = new Member();
-		if (newMember != null)
-			list.remove(newMember);
+		String i;
 	}
 }
