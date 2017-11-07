@@ -3,15 +3,37 @@ import java.util.List;
 
 public class Member {
 	
-	String Name;
-	int Year;
-	List <Member> FavoriteList= new LinkedList <Member> ();
-	List <Interest> InterestList = new LinkedList <Interest> ();
+	private String name;
+	private int year;
+	private List <Member> FavoriteList;
+	private List <Interest> InterestList;
+	
+	public Member(String nameInput, int yearInput)
+	{
+		name = nameInput;
+		year = yearInput;
+		FavoriteList= new LinkedList <Member> ();
+		InterestList = new LinkedList <Interest> ();
+	}
+	
+	public String toString() 
+	{
+		return name;
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
+	
+	public String addInterest(String interestInput, int levelInput)
+	{
+		return name;
+	}
 	
 	public int getInterestLevel (String topic){
 		
 		int interestLevel = 0;
-		
 		return interestLevel;
 		
 	}
@@ -51,8 +73,8 @@ public class Member {
 	}
 	
 	public void listSelf() {
-		System.out.println("Name: " + Name);
-		System.out.println("Year: " + Year);
+		System.out.println("name: " + name);
+		System.out.println("year: " + year);
 		System.out.println("Interests: ");
 		System.out.println(InterestList);
 		System.out.println("Favorites: ");

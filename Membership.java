@@ -9,32 +9,22 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Membership
+public class Membership implements Serializable
 {
-	private List<Member> list;
+	private static final long serialVersionUID = 1L;
+	private List<Member> mship;
 	
 	public Membership()
 	{
-		list = new LinkedList<Member>();
+		mship = new LinkedList<Member>();
 	}
 	
 	public Iterator<Member> iterator()
 	{
-		return list.iterator();
+		return mship.iterator();
 	}
 	
-	public boolean exists(String member)
-	{
-		boolean exists = false;
-		for(Member m : list)
-		{
-		    if (m.Name == member)
-		    	exists = true;
-		}
-		return exists;
-	}
-	
-	public static Membership load(String filename) throws IOException, ClassNotFoundException
+	public static Membership load(String filename) throws IOException, ClassNotFoundException, FileNotFoundException
 	{
 		FileInputStream fis = new FileInputStream(filename);
 		ObjectInputStream ois = new ObjectInputStream(fis);
@@ -48,37 +38,40 @@ public class Membership
 	{
 		FileOutputStream fos = new FileOutputStream(filename); 
 		ObjectOutputStream oos = new ObjectOutputStream(fos); 
-		oos.writeObject(this); 
+		oos.writeObject(mship); 
 		oos.flush(); 
 		oos.close(); 
 	}
 	
 	public void listSelf()
 	{
-		for(Object o : list)
+		// If mship is not empty, list all members
+		if (mship.size() > 0)
 		{
-		    System.out.println(o);
+			for(Member m : mship)
+				// The toString method of Member returns the name of the member
+			    System.out.println(m);
 		}
+		else
+			System.out.println("Current membership is empty.");
 	}
 	
 	public void addMember(String member, int year)
 	{
 		boolean exists = false;
-		for(Member m : list)
+		for(Member m : mship)
 		{
-		    if (m.Name == member)
+		    if (m.getName().equals(member))
 		    	exists = true;
 		}
 		
 		if (!exists)
 		{
 			Member newMember = new Member(member, year);
-			list.add(newMember);
+			mship.add(newMember);
 		}
 		else
-		{
 			System.out.println(member + " already exists");
-		}
 		
 	}
 	
@@ -86,45 +79,49 @@ public class Membership
 	{
 		// need help
 		boolean exists = false;
-		for(Member m : list)
+		for(Member m : mship)
 		{
-		    if (m.Name == member)
+		    if (m.getName().equals(member))
 		    {
 		    	exists = true;
+		    	mship.remove(m);
 		    	System.out.println(member + " has been removed.");
 		    }
 		}
 		
 		if (!exists)
-		{
 			System.out.println(member + " does not exist.");
-		}
 	}
 	
 	public void listMember(String member)
 	{
 		boolean exists = false;
-		for(Member m : list)
+		for(Member m : mship)
 		{
-		    if (m.Name == member)
+		    if (m.getName().equals(member))
     		{
 		    	exists = true;
-		    	System.out.println(m.Name);
-		    	System.out.println(m.Year);
-		    	System.out.println("(Interests here)");
-		    	System.out.println("(Favorites here)");
+		    	m.listSelf();
     		}
 		}
 		
 		if (!exists)
-		{
 			System.out.println(member + " does not exist.");
-		}
-
 	}
 	
 	public void addInterestToMember(String member, String interest, int level)
 	{
-		String i;
+		boolean exists = false;
+		for(Member m : mship)
+		{
+		    if (m.getName().equals(member))
+    		{
+		    	exists = true;
+		    	m.addInterest(interest, level);
+    		}
+		}
+		
+		if (!exists)
+			System.out.println(member + " does not exist.");
 	}
 }

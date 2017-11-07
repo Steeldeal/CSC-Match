@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class Menu
 {
-	static boolean start, saved, quit;
+	private static boolean start, saved, quit;
 	static Scanner input;
-	static Membership membership;
+	private static Membership mship;
 	
 	public Menu()
 	{
@@ -95,7 +95,7 @@ public class Menu
 		String filename = input.next();
 		try
 		{
-			membership = Membership.load(filename);
+			mship = Membership.load(filename);
 			start = false;
 			saved = true;
 			System.out.println(filename + " has been loaded.");
@@ -108,7 +108,7 @@ public class Menu
 	
 	public void newMembership()
 	{
-		membership = new Membership();
+		mship = new Membership();
 		System.out.println("A new membership has been created.");
 		start = false;
 	}
@@ -119,7 +119,7 @@ public class Menu
 		String filename = input.next();
 		try
 		{
-			membership.save(filename);
+			mship.save(filename);
 			System.out.println(filename + " has been saved.");
 			saved = true;
 		}
@@ -131,7 +131,7 @@ public class Menu
 	
 	public void listMembership(Scanner input)
 	{
-		membership.listSelf();
+		mship.listSelf();
 	}
 	
 	public void addMember(Scanner input)
@@ -139,15 +139,23 @@ public class Menu
 		System.out.println("Member: ");
 		String member = input.next();
 		int year = getInt("What year is " + member + "?", 1, 5, input);
-		membership.addMember(member, year);
-		saved = false;
+		
+		try
+		{
+			mship.addMember(member, year);
+			saved = false;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Error adding member.");
+		}
 	}
 	
 	public void removeMember(Scanner input)
 	{
 		System.out.println("Member: ");
 		String member = input.next();
-		membership.removeMember(member);
+		mship.removeMember(member);
 		saved = false;
 	}
 	
@@ -155,7 +163,7 @@ public class Menu
 	{
 		System.out.println("Member: ");
 		String member = input.next();
-		membership.listMember(member);
+		mship.listMember(member);
 	}
 	
 	public void addInterestToMember(Scanner input)
@@ -166,7 +174,7 @@ public class Menu
 		String interest = input.next();
 		System.out.println("Interest level: ");
 		int level = getInt("How interested is " + member + " in " + interest + "?", 1, 10, input);
-		membership.addInterestToMember(member, interest, level);
+		mship.addInterestToMember(member, interest, level);
 		saved = false;
 	}
 	
@@ -222,5 +230,4 @@ public class Menu
     			return i;
     	}
     }
-	
 }

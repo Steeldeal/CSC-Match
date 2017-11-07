@@ -1,17 +1,23 @@
 public class Interest {
-	String topic;
-	int InterestLevel;
+	private String name;
+	private int level;
+	
+	public Interest(String nameInput, int levelInput)
+	{
+		name = nameInput;
+		level = levelInput;
+	}
 	
 	public String getName()
 	{
-		return topic;
+		return name;
 	}
-	public int getInterestLevel()
+	public int getLevel()
 	{
-		return InterestLevel;
+		return level;
 	}
-	public void ChangeLevel(int newInterestLevel)
+	public void ChangeLevel(int levelInput)
 	{
-		InterestLevel = newInterestLevel;
+		level = levelInput;
 	}
 }
